@@ -1,0 +1,601 @@
+TEAMOPS AI – PLAN PROIZVODA I RAZVOJA
+Datum: 19. avgust 2026.
+
+1. KRATAK ZAKLJUČAK
+
+Ideja je tržišno veoma dobra: 9,1/10.
+
+Problem nije samo pravljenje smena. Menadžer podrške danas mora da spoji podatke iz kalendara odmora, rasporeda/dežurstava, ticketing sistema, eskalacija, CSAT izveštaja, backloga i nekoliko tabela. TeamOps AI sve to pretvara u jednu operativnu sliku i daje konkretne, proverljive predloge.
+
+Najbolje pozicioniranje:
+"AI operativni centar za support timove – zna ko radi, šta ume, koliko je opterećen i ko treba da pokrije svaku smenu, red ili eskalaciju."
+
+Proizvod ne treba predstavljati kao HR alat niti kao običan workforce management. Njegova uža i jača kategorija je Support Workforce Intelligence / Support Operations Management.
+
+
+2. CENTRALNI PROBLEM KOJI REŠAVA
+
+Menadžer trenutno mora ručno da odgovara na pitanja:
+
+- Ko danas radi i u kojoj smeni?
+- Ko je na odmoru, bolovanju, treningu ili odlazi ranije?
+- Ko može da pokrije osobu koja odsustvuje?
+- Da li imamo dovoljno ljudi po satu, redu, jeziku, regionu i nivou stručnosti?
+- Ko ima najveći backlog i stare tikete?
+- Kada najčešće dolaze novi tiketi i eskalacije?
+- Ko brzo zatvara tikete, ali ima lošiji CSAT ili visok reopen rate?
+- Ko može da preuzme kritičnu eskalaciju bez ugrožavanja svog postojećeg rada?
+- Da li je raspodela vikenda, noćnih smena i teških slučajeva fer?
+- Šta će se dogoditi ako još jedna osoba izostane?
+
+TeamOps AI daje odgovore na jednom mestu i pretvara ih u predloge i akcije.
+
+
+3. DVA OSNOVNA NALOGA I DOZVOLE
+
+A) MENADŽERSKI NALOG
+
+- današnja operativna slika tima;
+- ROTA, smene, dežurstva i on-call raspored;
+- godišnji odmori, bolovanja, treninzi, sastanci i druga odsustva;
+- planirana i stvarna pokrivenost po vremenu, redu, proizvodu, jeziku i veštini;
+- backlog po osobi i timu;
+- broj otvorenih, rešenih, reopened i eskaliranih tiketa;
+- starost tiketa i SLA rizici;
+- CSAT, QA ocene i trendovi;
+- pregled eskalacija, vlasništva i rokova;
+- AI predlozi pokrivanja i simulacija scenarija;
+- odobravanje zamena, odmora i promena smena;
+- team health, coaching i 1:1 beleške sa ograničenim pristupom;
+- izveštaji, audit log i podešavanja integracija;
+- kreiranje prilagođenih pravila firme bez menjanja koda.
+
+B) EMPLOYEE NALOG
+
+- Moja smena danas i naredne smene;
+- Moje dežurstvo/on-call obaveze;
+- ko radi zajedno sa mnom i ko je manager-on-duty;
+- moji redovi, proizvodi i odgovornosti;
+- pregled ličnog backloga i prioritetnih tiketa;
+- upozorenja za SLA i eskalacije;
+- zahtev za odmor, odsustvo ili zamenu smene;
+- ponuda/preuzimanje otvorene smene, uz odobrenje;
+- potvrda rasporeda i obaveštenja o promenama;
+- lična statistika i trendovi, uz kontekst – bez javnog rangiranja zaposlenih;
+- prikaz zašto je AI dao preporuku koja utiče na zaposlenog;
+- prijava preopterećenja ili nemogućnosti pokrivanja.
+
+Kasnije treba dodati Team Lead, Scheduler/WFM, HR read-only, Executive i Auditor uloge. Sistem u pozadini od početka treba da koristi granularni RBAC, iako se MVP prodaje sa dva jednostavna tipa naloga.
+
+
+4. GLAVNI EKRAN – TODAY COMMAND CENTER
+
+Ovo mora biti najvredniji ekran proizvoda. Menadžer za 30 sekundi vidi:
+
+- 18 planiranih / 16 dostupnih / 2 odsutna;
+- trenutnu i buduću pokrivenost po satima;
+- nedovoljno pokrivene redove i veštine;
+- broj novih, aktivnih, starih i SLA-rizičnih tiketa;
+- aktivne P1/P2 eskalacije;
+- trenutno opterećenje svakog člana;
+- tri najvažnija rizika za današnji dan;
+- AI Coverage Plan sa 2–3 predloga;
+- dugmad: Prihvati plan, Izmeni, Simuliraj i Obavesti tim.
+
+Primer AI poruke:
+
+"Od 14:00 do 17:00 Linux/EMEA red ima procenjeni manjak od 1,4 FTE zato što Ana odlazi u 14:00, Marko je na odmoru, a istorijski priliv utorkom raste 31%. Predlog A: Jelena pokriva red 14–16h, a Petar 16–17h. Jelena ima potrebnu Linux veštinu, 23% manji aktivni backlog od tima i nije pokrivala dodatnu smenu ove nedelje. Pouzdanost preporuke: 86%."
+
+Menadžer mora da vidi i razloge protiv predloga: npr. osoba ima aktivnu P1 eskalaciju, planiran trening, previše noćnih smena ili nema potrebnu veštinu.
+
+
+5. AI COVERAGE ENGINE – SRCE PROIZVODA
+
+Ulazi u model preporuke:
+
+- prisustvo i raspoloživost;
+- početak/kraj smene i vremenska zona;
+- odmor, bolovanje, trening, sastanci i planirano fokus vreme;
+- primarne i sekundarne veštine;
+- sertifikacije, proizvod, tehnologija, jezik i nivo podrške;
+- aktivni backlog, ponderisan prioritetom i starošću;
+- očekivani priliv tiketa po intervalu;
+- prosečno vreme rešavanja za vrstu tiketa;
+- aktivne eskalacije i on-call obaveze;
+- SLA rizik;
+- kvalitet: CSAT, QA, reopen i escalation rate – uz dovoljan uzorak;
+- prethodne dodatne smene, vikendi i noćni rad;
+- maksimalan broj sati, obavezni odmor i pravila firme;
+- preferencije zaposlenog, ako firma to dozvoli;
+- minimalni broj ljudi po veštini/redu/smeni;
+- fer raspodela nepopularnih smena.
+
+Hard constraints – nikada se ne krše:
+
+- osoba nije dostupna;
+- nema obaveznu veštinu/sertifikat;
+- krši maksimalno radno vreme ili obavezni odmor;
+- vremenski konflikt;
+- pravna/politička zabrana;
+- već je na kritičnom incidentu ili drugom ekskluzivnom zadatku.
+
+Soft constraints – optimizuju se:
+
+- bolja pokrivenost prognoziranog priliva;
+- niži backlog i SLA rizik;
+- odgovarajuće iskustvo;
+- ravnomerna raspodela tereta;
+- minimalan overtime;
+- kontinuitet rada na slučaju;
+- preferencije zaposlenih;
+- kvalitet i brzina, ali bez slepog nagrađivanja broja zatvorenih tiketa.
+
+Svaki predlog mora da sadrži:
+
+- koga AI predlaže;
+- šta tačno osoba pokriva i koliko dugo;
+- zašto je predložena;
+- šta se dobija i koji rizik ostaje;
+- zašto druge osobe nisu predložene;
+- procenu pouzdanosti;
+- podatke koji nedostaju;
+- obavezno ljudsko odobrenje pre objave rasporeda.
+
+Važno: LLM ne treba sam da računa raspored. Optimizacioni engine radi ograničenja i rangiranje; LLM objašnjava rezultate i omogućava razgovorni interfejs. Tako je sistem pouzdaniji, proverljiviji i jeftiniji.
+
+
+6. KLJUČNI MODULI
+
+6.1 ROTA I RASPORED
+
+- dnevni, nedeljni i mesečni prikaz;
+- smene, on-call, vikendi i praznici;
+- drag-and-drop izmene;
+- šabloni i rotacije;
+- automatsko otkrivanje konflikata;
+- shift swap i open-shift marketplace;
+- objava verzije rasporeda i potvrda zaposlenih;
+- istorija svih promena.
+
+6.2 ODSUSTVA I POKRIVANJE
+
+- zahtev i odobrenje odmora;
+- sinhronizacija sa HR/kalendar sistemom;
+- uticaj odsustva pre odobrenja;
+- automatski predlozi pokrivanja;
+- preklapanje odsustava ključnih stručnjaka;
+- preporuka alternativnog perioda ako je pokrivenost kritična;
+- nikada automatsko odbijanje odmora samo na osnovu AI preporuke.
+
+6.3 TICKET WORKLOAD
+
+- integracija sa ticketing alatima;
+- backlog po osobi, redu, prioritetu, proizvodu i starosti;
+- weighted workload score, ne samo prost broj tiketa;
+- incoming/resolved trend po satu, danu i sezoni;
+- SLA breach forecast;
+- stale ticket i ownership-gap detekcija;
+- predlog rebalansa tiketa.
+
+6.4 ESKALACIJE
+
+- P1/P2 komandna tabla;
+- vlasnik, backup, sledeći korak i rok;
+- vreme provedeno u svakoj fazi;
+- automatska detekcija eskalacije bez vlasnika ili ažuriranja;
+- handover paket pri smeni ili odsustvu;
+- post-incident pregled i povezivanje sa staffing odlukom.
+
+6.5 PERFORMANCE I QUALITY
+
+- CSAT i trend, uz veličinu uzorka;
+- QA ocene;
+- resolved, reopened, escalated, first-response i resolution time;
+- complexity-adjusted metrics;
+- timski i lični trend, ne toksična leaderboard tabela;
+- coaching opportunities i preporučeni trening;
+- mogućnost da zaposleni vidi i ospori netačan podatak;
+- metrike ne smeju biti jedini osnov za ocenu zaposlenog.
+
+6.6 FORECASTING
+
+- priliv po satu/danu/redu/kanalu;
+- sezonalnost, praznici, release događaji i kampanje;
+- očekivano vreme obrade i potreban kapacitet;
+- interval pouzdanosti, ne lažno precizan broj;
+- what-if: odmor, bolest, porast volumena, P1 incident ili gubitak veštine.
+
+6.7 NOTIFIKACIJE I WORKFLOW
+
+- email, Slack/Microsoft Teams i in-app;
+- dnevni manager briefing;
+- employee podsetnik za smenu/on-call;
+- zahtev za potvrdu promene;
+- SLA i coverage upozorenja;
+- pravila eskaliranja kada niko ne reaguje;
+- approval workflow za sve značajne AI akcije.
+
+
+7. PRILAGOĐAVANJE SVAKOJ FIRMI
+
+Ovo je presudno za prodaju. Ne praviti zaseban kod za svakog klijenta, već configuration-driven multi-tenant platformu.
+
+Setup Wizard treba da prikupi:
+
+- timove, lokacije i vremenske zone;
+- radno vreme, smene i praznike;
+- queue/channel strukturu;
+- proizvode i skill matricu;
+- nivoe senioriteta i sertifikate;
+- minimalnu pokrivenost;
+- SLA/SLO ciljeve;
+- pravila odmora, overtime-a i on-call rada;
+- KPI definicije i težine workload-a;
+- izvore podataka i mapiranje polja;
+- kanale obaveštavanja i approval lanac.
+
+Potrebni gradivni elementi:
+
+- custom fields;
+- rule builder tipa IF/THEN;
+- prilagodljivi dashboard widgeti;
+- formule za workload score;
+- custom shift i rotation templates;
+- field mapping za integracije;
+- verzionisanje konfiguracije;
+- sandbox/simulation mode pre puštanja pravila;
+- tenant-level feature flags;
+- API i webhook okvir.
+
+Industrijski paketi mogu kasnije biti: IT Support, Customer Support, NOC/SRE, Field Service, Healthcare Operations i Professional Services.
+
+
+8. INTEGRACIJE
+
+Prvi prioritet:
+
+- Jira Service Management;
+- ServiceNow;
+- Zendesk;
+- Microsoft Teams i Outlook/Microsoft 365;
+- Slack i Google Calendar;
+- CSV/Excel import kao univerzalni fallback.
+
+Kasnije:
+
+- Salesforce Service Cloud;
+- Intercom;
+- Freshdesk;
+- PagerDuty/Opsgenie;
+- Workday/SAP SuccessFactors/BambooHR;
+- Power BI/Tableau;
+- telephony/contact-center platforme.
+
+Pametan pilot može početi CSV importom i jednom ticketing integracijom, bez čekanja svih enterprise konektora.
+
+
+9. MVP – ŠTA TAČNO PRAVIMO PRVO
+
+MVP cilj: menadžer za manje od dva minuta vidi današnji kapacitet, rizike i dobija objašnjive predloge pokrivanja.
+
+MVP funkcije:
+
+1. Multi-tenant organizacije i bezbedna prijava.
+2. Manager i Employee iskustvo, uz RBAC osnovu.
+3. Timovi, smene, ROTA, on-call i kalendar odsustava.
+4. Skill matrica i dostupnost zaposlenih.
+5. CSV/Excel import tiketa, CSAT-a, zaposlenih i odsustava.
+6. Jedna prava ticketing integracija – idealno Jira Service Management ili ServiceNow za pilot.
+7. Today Command Center.
+8. Weighted backlog i workload score.
+9. Osnovni forecast po satima/danima.
+10. Coverage gap detekcija.
+11. AI Coverage Assistant sa tri rangirana i objašnjena predloga.
+12. What-if simulacija odsustva i rasta volumena.
+13. Employee: raspored, on-call, zahtev za odsustvo i zamenu smene.
+14. Odobrenje, objava i obaveštenje tima.
+15. Audit log, eksport i osnovni GDPR controls.
+
+Ne stavljati u prvi MVP:
+
+- automatsko disciplinovanje ili ocenjivanje ljudi;
+- potpuno autonoman scheduler bez odobrenja;
+- payroll;
+- kompleksan HRIS;
+- desetine integracija;
+- mobilne native aplikacije;
+- generički project management;
+- video nadzor ili invazivni employee monitoring.
+
+Responsive web/PWA je dovoljan za početak.
+
+
+10. PREDLOŽENI RAZVOJ PO FAZAMA
+
+FAZA 0 – DISCOVERY I DATA AUDIT (2–3 nedelje)
+
+- intervjui sa 5–10 support managera i 10 zaposlenih;
+- popis svih pet postojećih izvora podataka;
+- analiza kvaliteta, dostupnosti i dozvola podataka;
+- definicija workload formule i coverage pravila;
+- 20 realnih scenarija za evaluaciju preporuka;
+- klikabilni prototip Today Command Centra.
+
+FAZA 1 – PILOT MVP (10–14 nedelja za mali iskusan tim)
+
+- autentikacija, organizacije, RBAC;
+- raspored, odsustva i skill matrica;
+- import podataka i jedna integracija;
+- Today Command Center;
+- workload, coverage gaps i osnovni forecast;
+- objašnjivi predlozi pokrivanja;
+- employee portal, approvals i audit log;
+- responsive UX i pilot analitika.
+
+FAZA 2 – COMMERCIAL PILOT (8–12 nedelja)
+
+- real-time sync;
+- napredni forecast i scenario planning;
+- eskalacije i handover;
+- Teams/Slack/Outlook integracije;
+- no-code rule builder i dashboard konfiguracija;
+- SSO/SAML, SCIM i enterprise audit;
+- data retention i regional hosting opcije.
+
+FAZA 3 – SCALE (3–6 meseci)
+
+- više ticketing/HR integracija;
+- automatsko generisanje kompletnog rasporeda;
+- intraday reforecast i rebalans;
+- coaching i quality intelligence;
+- mobilna aplikacija ako je potvrđena potreba;
+- benchmark po anonimnim agregatima, samo uz pravnu i privatnosnu kontrolu;
+- marketplace za template pakete i konektore.
+
+
+11. PREDLOŽENA ARHITEKTURA
+
+Frontend:
+
+- React/Next.js i TypeScript;
+- responsive PWA;
+- pristupačnost WCAG 2.2 AA;
+- manager cockpit i pojednostavljen employee mobile prikaz.
+
+Backend:
+
+- Python FastAPI ili TypeScript/NestJS modularni monolit za početak;
+- PostgreSQL;
+- Redis za cache i kratke poslove;
+- background jobs preko Celery/RQ ili BullMQ;
+- objektno skladište za importe i izveštaje;
+- event/outbox obrazac za pouzdane integracije.
+
+Analytics i AI:
+
+- odvojeni ingestion/normalization sloj;
+- kanonski model za tickets, users, shifts, absences, skills i metrics;
+- forecasting servis;
+- constraint/optimization engine, npr. OR-Tools;
+- LLM samo za objašnjenja, razgovorne upite i sažetke;
+- potpuni recommendation log: ulazi, pravila, verzija modela, izlaz i odluka menadžera.
+
+Arhitektonsko pravilo:
+
+Početi kao dobro podeljen modularni monolit, ne kao veliki skup mikroservisa. Izdvajati servise tek kada integracije, forecast ili optimizacija zahtevaju nezavisno skaliranje.
+
+
+12. OSNOVNI DATA MODEL
+
+- Tenant / Organization
+- User
+- Role / Permission
+- Team / Subteam
+- Location / TimeZone / HolidayCalendar
+- Skill / Certification / UserSkill
+- Queue / Product / Channel
+- Shift / ShiftTemplate / Rotation
+- Availability / Absence / TimeOffRequest
+- Assignment / OnCallDuty
+- TicketSnapshot / TicketEvent
+- Escalation / Handover
+- CSAT / QAEvaluation
+- WorkloadSnapshot
+- Forecast / CapacityRequirement
+- CoverageGap
+- Recommendation / RecommendationOption / Explanation
+- Approval / Notification
+- Integration / FieldMapping / SyncRun
+- Rule / PolicyVersion
+- AuditEvent
+
+
+13. METRIKE KOJE MORAJU BITI PAMETNO DEFINISANE
+
+Ne koristiti samo "broj zatvorenih tiketa". To kažnjava ljude koji rade najteže slučajeve.
+
+Weighted workload može uključiti:
+
+- broj aktivnih tiketa;
+- prioritet;
+- starost;
+- blizinu SLA roka;
+- procenjenu kompleksnost;
+- broj čekanja na kupca ili engineering;
+- aktivne eskalacije;
+- potreban kontekst i ownership;
+- raspoloživo vreme osobe u smeni.
+
+Performance prikaz treba da balansira:
+
+- količinu;
+- kvalitet;
+- brzinu;
+- kompleksnost;
+- customer outcome;
+- saradnju i handover;
+- stabilnost rezultata kroz vreme;
+- veličinu uzorka.
+
+CSAT od 100% na 2 ankete ne sme izgledati bolje od stabilnog 94% na 100 anketa bez odgovarajućeg konteksta.
+
+
+14. FAIRNESS, PRIVATNOST I ZAŠTITA ZAPOSLENIH
+
+Ovo je proizvod koji može da utiče na ljude, pa poverenje mora biti deo dizajna.
+
+- transparentno prikazati koje podatke sistem koristi;
+- zaposleni vidi svoje podatke i može prijaviti grešku;
+- bez skrivenog praćenja tastature, ekrana ili aktivnosti;
+- bez javnog rangiranja i sramoćenja;
+- AI ne donosi konačne odluke o odmoru, oceni ili disciplini;
+- zaštita od stalnog biranja iste "najbolje" osobe;
+- fairness ograničenja za vikende, noći i dodatne smene;
+- odvojiti coaching podatke od operativnog raspoređivanja gde je potrebno;
+- ograničavanje pristupa, enkripcija, audit i retention politike;
+- GDPR DPIA i konsultacija sa works council/sindikatom gde je primenljivo;
+- EU AI Act procena pre upotrebe AI izlaza u HR odlukama;
+- tenant podaci se ne koriste za treniranje zajedničkog modela bez izričitog ugovora.
+
+
+15. VALIDACIJA PRE VELIKOG ULAGANJA
+
+Najbolji prvi pilot je shadow mode:
+
+- alat svakog jutra uvozi iste podatke koje menadžer ručno pregleda;
+- pravi svoju sliku i 2–3 predloga;
+- menadžer nastavlja da odlučuje kao i do sada;
+- beležimo da li je preporuku prihvatio, izmenio ili odbio i zašto;
+- upoređujemo vreme planiranja, coverage gaps, SLA i overtime sa prethodnim periodom.
+
+Pilot ciljevi:
+
+- najmanje 60% manje vremena za dnevno planiranje i proveru;
+- najmanje 30% manje nepokrivenih intervala;
+- 15–25% manje tiketa koji ulaze u SLA rizik;
+- 10–20% manje ručnih promena posle objave rasporeda;
+- najmanje 70% AI predloga prihvaćeno ili prihvaćeno uz malu izmenu;
+- najmanje 80% managera i zaposlenih ocenjuje objašnjenja kao jasna i fer.
+
+Ovo su pilot hipoteze, ne obećanja kupcu. Komercijalne tvrdnje koristiti tek nakon merenja.
+
+
+16. KONKURENCIJA I NAŠA POZICIJA
+
+Assembled:
+- jak AI WFM, forecasting, scheduling i real-time management;
+- ozbiljan direktan konkurent za support/contact-center timove.
+
+Zendesk WFM:
+- forecasting, automatsko raspoređivanje, praćenje aktivnosti i analitika;
+- prirodna prednost kod firmi koje su već potpuno u Zendesk ekosistemu.
+
+Playvox:
+- kombinuje workforce i quality/performance management;
+- jak u contact-center okruženju.
+
+NICE i slični enterprise WFM sistemi:
+- veoma moćni za velike contact centre;
+- često teži za konfiguraciju i širi nego što treba modernom tehničkom support timu.
+
+Naša odbranjiva razlika treba da bude:
+
+1. Tehnički support i ticket operations, ne samo contact-center staffing.
+2. Jedinstven spoj ROTA + odsustva + backlog + skill + eskalacije + CSAT/QA.
+3. Objašnjivi predlozi pokrivanja sa alternativama i trade-off prikazom.
+4. Configuration-first prilagođavanje različitim firmama.
+5. Vendor-neutral povezivanje više ticketing, HR i kalendar sistema.
+6. Shadow mode za bezbedno uvođenje i merenje ROI-ja.
+7. Fairness i employee trust kao funkcija proizvoda, ne fusnota.
+
+Ne treba tvrditi da konkurencija nema pojedinačne funkcije. Prednost mora da bude bolji zajednički workflow i brža odluka na jednom mestu.
+
+
+17. POSLOVNI MODEL
+
+Preporučen B2B SaaS model:
+
+- Pilot: fiksna implementacija + ograničeni broj korisnika.
+- Team paket: osnovni schedule, absence, workload i coverage.
+- Pro paket: forecasting, AI recommendation, escalations i advanced analytics.
+- Enterprise: SSO/SCIM, audit, data residency, custom retention, SLA i premium konektori.
+
+Moguća početna cenovna hipoteza za validaciju, ne konačni cenovnik:
+
+- mali timovi: 8–15 EUR po aktivnom zaposlenom mesečno;
+- Pro: 15–30 EUR po aktivnom zaposlenom mesečno;
+- enterprise: ugovorna cena + onboarding/integration fee;
+- pilot/implementacija: približno 3.000–15.000 EUR, zavisno od integracija i obima.
+
+Za IBM-slične firme prodaja je duga i bezbednosno zahtevna. Prvi komercijalni kupci treba da budu support organizacije od približno 20–200 ljudi koje već osećaju problem, a mogu brže da odobre pilot.
+
+
+18. GLAVNI RIZICI
+
+- loš ili nepotpun izvor podataka;
+- komplikovane enterprise integracije i dozvole;
+- pogrešno poređenje zaposlenih različitih uloga i kompleksnosti;
+- otpor zaposlenih ako proizvod deluje kao nadzor;
+- lokalni radni zakoni i kolektivna pravila;
+- hladni start bez dovoljno istorije za forecast;
+- menadžeri očekuju savršen automatski raspored;
+- preširok MVP koji pokušava da zameni HR, WFM, BI i ticketing odjednom.
+
+Ublažavanje:
+
+- data quality score na svakom dashboardu;
+- explainability i human approval;
+- shadow mode;
+- rule templates i konfiguracioni engine;
+- meriti kvalitet preporuke;
+- početi sa jednom vertikalom: B2B/technical support.
+
+
+19. REALNA OCENA IDEJE
+
+- Jačina problema: 9,8/10
+- Jasnoća kupca: 9,0/10
+- Spremnost tržišta da plati: 8,8/10
+- Konkurentski prostor: 7,5/10
+- Diferencijacija predloženog rešenja: 9,2/10
+- Tehnička izvodljivost MVP-a: 8,3/10
+- Kompleksnost enterprise integracija: 6,5/10
+- Dugoročni potencijal: 9,4/10
+- Ukupna ocena: 9,1/10
+
+Ovo nije mala aplikacija, ali može biti veoma vredan B2B proizvod. Najveća greška bila bi početi od ogromnog univerzalnog sistema. Najbolji početak je Today Command Center + odsustva + realan workload + objašnjivi AI Coverage Plan za tehničke support timove.
+
+
+20. PRVI SLEDEĆI KORACI
+
+1. Izabrati radno ime i precizan ideal customer profile.
+2. Dokumentovati pet izvora koje danas menadžer ručno otvara.
+3. Prikupiti anonimizovan primer rasporeda, odsustava, skill matrice i 8–12 nedelja ticket statistike.
+4. Definisati 20 realnih scenarija pokrivanja i očekivane odluke dobrog menadžera.
+5. Napraviti UX prototip Today Command Centra i employee prikaza.
+6. Testirati prototip sa 3–5 managera i 5–10 zaposlenih.
+7. Napraviti CSV-first pilot pre punih enterprise integracija.
+8. Implementirati MVP u shadow mode-u.
+9. Meriti vreme uštede, coverage gaps, SLA rizike, fairness i acceptance rate preporuka.
+10. Tek nakon pilot dokaza zaključati cenu i komercijalne ROI tvrdnje.
+
+
+21. PREDLOZI IMENA
+
+- TeamOps AI
+- CoverPilot
+- SupportFlow AI
+- RotaSense
+- ShiftLens
+- Support Command
+- CapacityPilot
+
+Najjasnije radno ime: TeamOps AI.
+Najbolje diferencirano ime za AI pokrivanje: CoverPilot.
+
+
+ZAVRŠNA PREPORUKA
+
+Ideju vredi razvijati. Prvi proizvod ne treba da pokušava da bude kompletan HR/WFM paket. Treba da reši najskuplji svakodnevni trenutak: "Ko danas radi, gde nastaje rupa i kako da je pokrijemo bez preopterećivanja pogrešnih ljudi?"
+
+Ako to rešimo pouzdano, pregledno i fer, ostali moduli – napredni raspored, forecast, kvalitet, coaching i enterprise analitika – prirodno se nadograđuju.
