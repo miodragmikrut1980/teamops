@@ -18,6 +18,10 @@ Human approval is always required before AI output affects real data.
 | [docs/TASKS.md](docs/TASKS.md) | Granular task board — read every session, pick the next `[ ]` task |
 | [docs/PATTERNS.md](docs/PATTERNS.md) | How code is written in this project, with real examples |
 | [docs/features/](docs/features/) | Detailed buildable specs for each feature |
+| [docs/FOR_PRODUCT_MANAGER.md](docs/FOR_PRODUCT_MANAGER.md) | How the PM uses AI for discovery and planning |
+
+> **Current active phase: Phase 0 — Discovery.**
+> No dev tasks start until Phase 0 PM tasks in TASKS.md are complete.
 
 ---
 
