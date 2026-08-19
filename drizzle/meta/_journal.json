@@ -1,0 +1,13 @@
+{
+  "version": "7",
+  "dialect": "sqlite",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "6",
+      "when": 1787138799309,
+      "tag": "0000_mighty_skaar",
+      "breakpoints": true
+    }
+  ]
+}
