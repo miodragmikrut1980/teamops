@@ -1,0 +1,41 @@
+# TeamOps AI — AI Agent Context
+
+> **For ChatGPT / OpenAI agents:** Paste this file at the start of your session,
+> then ask the AI to also read the files listed below.
+
+TeamOps AI is a B2B SaaS platform for **Support Workforce Intelligence**.
+It helps support managers see daily operational state (who works, coverage gaps,
+SLA risk, backlog, escalations) and get explainable AI coverage recommendations.
+Human approval is always required before AI output affects real data.
+
+**Phase 0 — Discovery.** Team: Product/CEO, Frontend dev, Backend dev.
+
+---
+
+## Read These Files (in order)
+
+| File | Purpose |
+|---|---|
+| `docs/PRODUCT_VISION.md` | What we're building, why, for whom — read once |
+| `docs/PROGRESS.md` | Current status and what to work on next — read every session |
+| `docs/PATTERNS.md` | How code is written in this project, with real examples |
+| `docs/features/` | Detailed buildable specs for each feature |
+
+---
+
+## Quick Reference
+
+```bash
+npm ci                      # install (lockfile — do not update without reason)
+npm run dev                 # local dev server
+npm run build               # production build
+npm test                    # run tests
+npm run lint                # lint
+npx drizzle-kit generate    # generate migration after schema change
+npx drizzle-kit migrate     # apply migrations locally
+wrangler deploy             # deploy to Cloudflare
+```
+
+**Stack:** Next.js 16.2.6 · React 19 · TypeScript 5.9.3 (strict) · Cloudflare Workers (vinext) · Drizzle ORM + D1 → Neon · Tailwind CSS 4
+**Auth:** Sign in with ChatGPT (SIWC) via OpenAI workspace headers
+**Deploy:** OpenAI Sites via Wrangler

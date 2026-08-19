@@ -4,3 +4,15 @@ dist/
 .next/
 .sites-runtime/
 .wrangler/
+
+# Secrets and local env
+.env
+.env.local
+.env.*.local
+*.pem
+*.key
+
+# AI tool caches
+.cursor/
+.aider*
+.continue/
