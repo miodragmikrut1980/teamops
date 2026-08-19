@@ -17,9 +17,14 @@ Human approval is always required before AI output affects real data.
 | File | Purpose |
 |---|---|
 | `docs/PRODUCT_VISION.md` | What we're building, why, for whom — read once |
-| `docs/PROGRESS.md` | Current status and what to work on next — read every session |
+| `docs/PROGRESS.md` | Current phase and feature status |
+| `docs/TASKS.md` | Granular task board — read every session, pick the next `[ ]` task |
 | `docs/PATTERNS.md` | How code is written in this project, with real examples |
 | `docs/features/` | Detailed buildable specs for each feature |
+| `docs/FOR_PRODUCT_MANAGER.md` | How the PM uses AI for discovery and planning |
+
+> **Current active phase: Phase 0 — Discovery.**
+> No dev tasks start until Phase 0 PM tasks in TASKS.md are complete.
 
 ---
 
