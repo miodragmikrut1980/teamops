@@ -23,7 +23,7 @@ export async function POST(request: Request) {
     db.insert(users).values({ id: userId, email: identity.email.toLowerCase(), displayName: identity.displayName, status: "active", createdAt: now }),
     db.insert(memberships).values({ id: membershipId, organizationId, userId, role: "manager", createdAt: now }),
     db.insert(teams).values({ id: crypto.randomUUID(), organizationId, name: "Core Support", timezone: "Europe/Belgrade", createdAt: now }),
-    db.insert(configurationVersions).values({ id: crypto.randomUUID(), organizationId, version: 1, status: "active", payload: { shadowMode: true, defaultTimezone: "Europe/Belgrade" }, createdByUserId: userId, createdAt: now }),
+    db.insert(configurationVersions).values({ id: crypto.randomUUID(), organizationId, version: 1, status: "active", payload: { shadowMode: true, defaultTimezone: "Europe/Belgrade", teamProfile: "small" }, createdByUserId: userId, createdAt: now }),
     db.insert(auditEvents).values({ id: crypto.randomUUID(), organizationId, actorUserId: userId, action: "organization.bootstrapped", targetType: "organization", targetId: organizationId, metadata: { role: "manager", source: "authenticated_onboarding" }, createdAt: now }),
   ]);
   return NextResponse.json({ organizationId, role: "manager" }, { status: 201 });

@@ -32,6 +32,64 @@ export const teams = sqliteTable("teams", {
   createdAt: integer("created_at", { mode: "timestamp" }).notNull(),
 });
 
+export const teamMembers = sqliteTable("team_members", {
+  id: text("id").primaryKey(),
+  organizationId: text("organization_id").notNull().references(() => organizations.id),
+  teamId: text("team_id").notNull().references(() => teams.id),
+  userId: text("user_id").notNull().references(() => users.id),
+  createdAt: integer("created_at", { mode: "timestamp" }).notNull(),
+}, (table) => [uniqueIndex("team_member_team_user_idx").on(table.teamId, table.userId)]);
+
+export const invitations = sqliteTable("invitations", {
+  id: text("id").primaryKey(),
+  organizationId: text("organization_id").notNull().references(() => organizations.id),
+  email: text("email").notNull(),
+  role: text("role", { enum: ["manager", "employee", "auditor"] }).notNull(),
+  status: text("status", { enum: ["pending", "accepted", "revoked", "expired"] }).notNull().default("pending"),
+  invitedByUserId: text("invited_by_user_id").notNull().references(() => users.id),
+  expiresAt: integer("expires_at", { mode: "timestamp" }).notNull(),
+  createdAt: integer("created_at", { mode: "timestamp" }).notNull(),
+});
+
+export const queues = sqliteTable("queues", {
+  id: text("id").primaryKey(),
+  organizationId: text("organization_id").notNull().references(() => organizations.id),
+  name: text("name").notNull(),
+  code: text("code").notNull(),
+  active: integer("active", { mode: "boolean" }).notNull().default(true),
+  createdAt: integer("created_at", { mode: "timestamp" }).notNull(),
+}, (table) => [uniqueIndex("queue_org_code_idx").on(table.organizationId, table.code)]);
+
+export const products = sqliteTable("products", {
+  id: text("id").primaryKey(),
+  organizationId: text("organization_id").notNull().references(() => organizations.id),
+  name: text("name").notNull(),
+  active: integer("active", { mode: "boolean" }).notNull().default(true),
+  createdAt: integer("created_at", { mode: "timestamp" }).notNull(),
+});
+
+export const skills = sqliteTable("skills", {
+  id: text("id").primaryKey(),
+  organizationId: text("organization_id").notNull().references(() => organizations.id),
+  name: text("name").notNull(),
+  category: text("category").notNull(),
+  certificationRequired: integer("certification_required", { mode: "boolean" }).notNull().default(false),
+  active: integer("active", { mode: "boolean" }).notNull().default(true),
+  createdAt: integer("created_at", { mode: "timestamp" }).notNull(),
+}, (table) => [uniqueIndex("skill_org_name_idx").on(table.organizationId, table.name)]);
+
+export const userSkills = sqliteTable("user_skills", {
+  id: text("id").primaryKey(),
+  organizationId: text("organization_id").notNull().references(() => organizations.id),
+  userId: text("user_id").notNull().references(() => users.id),
+  skillId: text("skill_id").notNull().references(() => skills.id),
+  level: integer("level").notNull(),
+  certificationName: text("certification_name"),
+  certificationExpiresAt: integer("certification_expires_at", { mode: "timestamp" }),
+  verifiedAt: integer("verified_at", { mode: "timestamp" }),
+  createdAt: integer("created_at", { mode: "timestamp" }).notNull(),
+}, (table) => [uniqueIndex("user_skill_user_skill_idx").on(table.userId, table.skillId)]);
+
 export const leaveRequests = sqliteTable("leave_requests", {
   id: text("id").primaryKey(),
   organizationId: text("organization_id").notNull().references(() => organizations.id),
