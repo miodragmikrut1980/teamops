@@ -1,6 +1,6 @@
 export const permissions = {
-  manager: ["team:read", "team:write", "member:invite", "skill:write", "leave:read:any", "leave:approve", "audit:read", "config:write"],
-  employee: ["team:read", "leave:create", "leave:read:own", "schedule:read:own"],
+  manager: ["team:read", "team:write", "member:invite", "skill:write", "leave:read:any", "leave:approve", "schedule:read:any", "schedule:write", "schedule:publish", "audit:read", "config:write"],
+  employee: ["team:read", "leave:create", "leave:read:own", "schedule:read:own", "schedule:acknowledge"],
   auditor: ["team:read", "leave:read:any", "audit:read"],
 } as const;
 

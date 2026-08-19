@@ -102,6 +102,37 @@ export const leaveRequests = sqliteTable("leave_requests", {
   updatedAt: integer("updated_at", { mode: "timestamp" }).notNull(),
 });
 
+export const scheduleVersions = sqliteTable("schedule_versions", {
+  id: text("id").primaryKey(), organizationId: text("organization_id").notNull().references(() => organizations.id),
+  teamId: text("team_id").references(() => teams.id), version: integer("version").notNull(),
+  status: text("status", { enum: ["draft", "published", "superseded", "cancelled"] }).notNull().default("draft"),
+  weekStart: text("week_start").notNull(), createdByUserId: text("created_by_user_id").notNull().references(() => users.id),
+  publishedAt: integer("published_at", { mode: "timestamp" }), createdAt: integer("created_at", { mode: "timestamp" }).notNull(),
+}, table => [uniqueIndex("schedule_org_week_version_idx").on(table.organizationId, table.weekStart, table.version)]);
+
+export const shifts = sqliteTable("shifts", {
+  id: text("id").primaryKey(), organizationId: text("organization_id").notNull().references(() => organizations.id),
+  scheduleVersionId: text("schedule_version_id").notNull().references(() => scheduleVersions.id),
+  userId: text("user_id").notNull().references(() => users.id), startsAt: integer("starts_at", { mode: "timestamp" }).notNull(),
+  endsAt: integer("ends_at", { mode: "timestamp" }).notNull(), timezone: text("timezone").notNull(),
+  kind: text("kind", { enum: ["regular", "on_call", "training"] }).notNull().default("regular"),
+  status: text("status", { enum: ["planned", "confirmed", "cancelled"] }).notNull().default("planned"),
+  createdAt: integer("created_at", { mode: "timestamp" }).notNull(),
+});
+
+export const availability = sqliteTable("availability", {
+  id: text("id").primaryKey(), organizationId: text("organization_id").notNull().references(() => organizations.id),
+  userId: text("user_id").notNull().references(() => users.id), date: text("date").notNull(),
+  status: text("status", { enum: ["available", "unavailable", "preferred"] }).notNull(), note: text("note"),
+  createdAt: integer("created_at", { mode: "timestamp" }).notNull(),
+}, table => [uniqueIndex("availability_user_date_idx").on(table.userId, table.date)]);
+
+export const scheduleAcknowledgements = sqliteTable("schedule_acknowledgements", {
+  id: text("id").primaryKey(), organizationId: text("organization_id").notNull().references(() => organizations.id),
+  scheduleVersionId: text("schedule_version_id").notNull().references(() => scheduleVersions.id),
+  userId: text("user_id").notNull().references(() => users.id), acknowledgedAt: integer("acknowledged_at", { mode: "timestamp" }).notNull(),
+}, table => [uniqueIndex("schedule_ack_user_idx").on(table.scheduleVersionId, table.userId)]);
+
 export const configurationVersions = sqliteTable("configuration_versions", {
   id: text("id").primaryKey(),
   organizationId: text("organization_id").notNull().references(() => organizations.id),

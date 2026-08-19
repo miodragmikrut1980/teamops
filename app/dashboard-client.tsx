@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import TeamSetup from "./team-setup";
+import ScheduleWorkspace from "./schedule-workspace";
 
 type View = "manager" | "employee";
 type Page = "Today" | "Schedule" | "Workload" | "Escalations" | "Team";
@@ -57,6 +58,7 @@ export default function DashboardClient({ displayName, role, organizationName }:
         </header>
         {page === "Today"
           ? <Today option={option} setOption={setOption} notify={notify} />
+          : page === "Schedule" ? <ScheduleWorkspace role={role} notify={notify} />
           : page === "Team" ? <TeamSetup role={role} notify={notify} />
           : <ModulePage page={page} notify={notify} />}
       </main>

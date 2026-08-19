@@ -38,3 +38,19 @@ export async function POST(request: Request) {
   ]);
   return NextResponse.json({ id, status: "pending" }, { status: 201 });
 }
+
+export async function PATCH(request: Request) {
+  const tenant = await context();
+  if (!tenant || !can(tenant.role, "leave:approve")) return NextResponse.json({ error: "Manager permission required" }, { status: 403 });
+  const body = await request.json() as { id?: string; decision?: "approved" | "rejected" };
+  if (!body.id || !["approved", "rejected"].includes(body.decision ?? "")) return NextResponse.json({ error: "Invalid decision" }, { status: 400 });
+  const db = getDb();
+  const [record] = await db.select().from(leaveRequests).where(and(eq(leaveRequests.id, body.id), eq(leaveRequests.organizationId, tenant.organizationId))).limit(1);
+  if (!record || record.status !== "pending") return NextResponse.json({ error: "Pending request not found" }, { status: 404 });
+  const now = new Date();
+  await db.batch([
+    db.update(leaveRequests).set({ status: body.decision!, updatedAt: now }).where(eq(leaveRequests.id, record.id)),
+    db.insert(auditEvents).values({ id: crypto.randomUUID(), organizationId: tenant.organizationId, actorUserId: tenant.userId, action: `leave.${body.decision}`, targetType: "leave_request", targetId: record.id, metadata: { requesterUserId: record.requesterUserId }, createdAt: now }),
+  ]);
+  return NextResponse.json({ status: body.decision });
+}
